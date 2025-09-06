@@ -1,0 +1,168 @@
+:root{
+  /* For a 1080x1920 design, 300px tiles fit nicely; we scale down on small screens */
+  --tile: 300px;
+  --gap: 8px;
+  --radius: 18px;
+  --bg: #0f1223;
+  --panel: #151835;
+  --ink: #eef1ff;
+  --soft: #9aa4ff;
+  --accent: #7d8bff;
+}
+
+*{ box-sizing: border-box; }
+html, body { height: 100%; }
+body{
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 800px at 80% -10%, #2a2f74 0%, transparent 60%),
+    radial-gradient(1200px 800px at -20% 120%, #2c2b5f 0%, transparent 60%),
+    var(--bg);
+}
+
+.screen{
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.hidden{ display: none !important; }
+
+.wrap{
+  width: min(100%, 1080px);
+  display: grid;
+  gap: 24px;
+  justify-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 40px 24px;
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
+}
+
+.title{
+  margin: 0;
+  font-size: clamp(28px, 5vw, 56px);
+  letter-spacing: 0.5px;
+}
+.subtitle{ margin: 0; opacity: .9; }
+
+.btn{
+  border: 1px solid rgba(255,255,255,0.15);
+  background: #22264f;
+  color: var(--ink);
+  font-weight: 600;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform .06s ease, filter .2s ease, background .2s ease;
+}
+.btn:hover{ filter: brightness(1.06); transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+.btn.primary{
+  background: linear-gradient(180deg, var(--accent), #5a6aff);
+  border-color: rgba(0,0,0,0.15);
+  color: white;
+}
+
+.hud{
+  width: min(1080px, 100%);
+  margin: 16px auto 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+}
+.hud-group{ display: inline-flex; align-items: center; gap: 10px; }
+.tag{ opacity: .8; font-weight: 600; }
+.value{
+  min-width: 56px;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: #1c2047;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.board-wrap{
+  width: min(1080px, 100%);
+  margin: 12px auto 24px;
+  display: grid;
+  place-items: center;
+}
+
+.board{
+  display: grid;
+  grid-template-columns: repeat(3, var(--tile));
+  grid-auto-rows: var(--tile);
+  gap: var(--gap);
+  padding: var(--gap);
+  background: #0e1030;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 30px 80px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+.tile{
+  display: grid;
+  place-items: center;
+  user-select: none;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: linear-gradient(180deg, #2a2f74, #20255a);
+  box-shadow: 0 8px 16px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,0.05);
+  font-weight: 800;
+  font-size: clamp(24px, 6vw, 48px);
+  letter-spacing: 0.5px;
+  position: relative;
+  cursor: pointer;
+  background-size: cover;     /* for image tiles */
+  background-position: center;
+}
+.tile::after{
+  /* numeric label so it works without image assets */
+  content: attr(data-label);
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0,0,0,.6);
+}
+.tile.empty{
+  background: repeating-linear-gradient(45deg, #1b1f46, #1b1f46 12px, #171a3b 12px, #171a3b 24px);
+  border: 1px dashed rgba(255,255,255,0.25);
+  cursor: default;
+}
+.tile.empty::after{ content: ""; }
+
+/* Pause overlay */
+.overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+.card{
+  width: min(90vw, 480px);
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+}
+
+/* Responsiveness */
+@media (max-width: 1080px){
+  :root{ --tile: 28vw; }
+}
+@media (max-width: 420px){
+  :root{ --tile: 29vw; }
+}

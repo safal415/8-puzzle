@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Puzzle Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- START SCREEN -->
+  <section id="start-screen" class="screen">
+    <div class="wrap">
+      <h1 class="title">Puzzle Game</h1>
+      <button class="btn primary" onclick="startGame()">Start</button>
+    </div>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <section id="game-screen" class="screen hidden">
+    <header class="hud">
+      <div class="hud-group">
+        <span class="tag">Moves</span>
+        <span id="moves" class="value">0</span>
+      </div>
+      <div class="hud-group">
+        <span class="tag">Time</span>
+        <span id="time" class="value">00:00</span>
+      </div>
+      <div class="hud-group">
+        <button class="btn" onclick="pauseResume()"><span id="pause-label">Pause</span></button>
+        <button class="btn" onclick="resetGame()">Restart</button>
+      </div>
+    </header>
+
+    <main class="board-wrap">
+      <!-- 3x3 grid board -->
+      <div id="puzzle-board" class="board" aria-label="Sliding puzzle grid"></div>
+    </main>
+  </section>
+
+  <!-- PAUSE OVERLAY -->
+  <div id="pause-overlay" class="overlay hidden">
+    <div class="card">
+      <h2>Paused</h2>
+      <button class="btn primary" onclick="pauseResume()">Resume</button>
+      <button class="btn" onclick="resetGame()">Restart</button>
+    </div>
+  </div>
+
+  <!-- WIN SCREEN -->
+  <section id="win-screen" class="screen hidden">
+    <div class="wrap">
+      <h1 class="title">You Win! 🎉</h1>
+      <p class="subtitle">
+        Moves: <span id="final-moves">0</span> • Time: <span id="final-time">00:00</span>
+      </p>
+      <button class="btn primary" onclick="startGame()">Play Again</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
